@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import environ
-# import os
+import os
 
 env = environ.Env(
     # set casting, default value
@@ -22,21 +22,16 @@ env = environ.Env(
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Take environment variables from .env file
-# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-environ.Env.read_env()
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# False if not in os.environ because of casting above
-DEBUG = env('DEBUG')
-
+environ.Env.read_env(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET KEY')
-# django-insecure-hoqljf8z14n!byxc9@8lj7kwo$p1i@8c2ol@fk5bz52n3w)89)
+SECRET_KEY = env('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -52,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     "debug_toolbar",
+    "django_music",
+    "albums",
 ]
 
 MIDDLEWARE = [
@@ -70,7 +67,7 @@ ROOT_URLCONF = 'django_music.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,15 +86,12 @@ WSGI_APPLICATION = 'django_music.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     "default": env.db(),
+    'extra': env.db_url(
+        'SQLITE_URL',
+        default='sqlite:////tmp/my-tmp-sqlite.db'
+    )
 }
 
 # Password validation
