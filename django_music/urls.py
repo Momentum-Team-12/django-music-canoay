@@ -16,9 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from albums import views as albums_views
+from django.conf import settings #add this
+from django.conf.urls.static import static #add this
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     path('', albums_views.album_home, name='album_home'),
+    path('albums/new/', albums_views.add_album, name='add_album'),
+    path('albums/<int:pk>',
+         albums_views.view_album,
+         name='view_album'),
+    path('albums/<int:pk>/edit/',
+         albums_views.edit_album,
+         name='edit_album'),
+    path('albums/<int:pk>/delete/',
+         albums_views.delete_album,
+         name='delete_album'),
 ]
