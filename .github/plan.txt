@@ -1,0 +1,48 @@
+-Models
+    -Album Model 
+        -title
+        -artist
+        -created at
+        -optional attributes    
+
+-Views
+    
+    -   name: list_albums
+        path:"" 
+        handles requests: GET  | show a list of all the albums
+
+    -   name:create_album
+        path:"/albums/new"
+        handles requests: GET  | show a form to create a new album
+                          POST | create a new album
+
+    -   name:album_detail
+        path:`/albums/<int:pk>`
+        handles requests: GET  | show details about a single album
+    
+    -   name: edit_albums
+        path:`/albums/<int:pk>/edit`
+        handles reqests: GET  | show a form to edit a new album
+                         POST | update a specific album
+
+    -   name: delete_albums
+        path:`/albums/<int:pk>/delete`
+        handles requests: GET  | show a confirmation screen to delete a specific album
+                          POST | delete a specific album                      
+
+
+-Templates
+
+-URLs
+| path                      | verb | purpose                                               |
+| ------------------------- | ---- | ----------------------------------------------------- | 
+| `""`                      | GET  | show a list of all the albums                         |
+| `/albums/new`             | GET  | show a form to create a new album                     |
+| `/albums/new`             | POST | create a new album                                    |
+| `/albums/<int:pk>`        | GET  | show details about a single album                     |
+| `/albums/<int:pk>/edit`   | GET  | show a form to edit a new album                       |
+| `/albums/<int:pk>/edit`   | POST | update a specific album                               |
+| `/albums/<int:pk>/delete` | GET  | show a confirmation screen to delete a specific album |
+| `/albums/<int:pk>/delete` | POST | delete a specific album    
+
+-Forms
