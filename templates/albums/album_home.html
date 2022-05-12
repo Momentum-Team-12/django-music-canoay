@@ -2,19 +2,22 @@
 
 {% block content %}
 <h1>All Albums</h1>
-
+<br>
 <p><a href="{% url 'add_album' %}">Add New Album</a></p>
-
+<br>
 <div class="flex flex-wrap">
     {% for album in albums %}
     <div class="w-33 pa3">
         <h2>{{ album.album_title }}</h2>
-
+         {% if album.image %}
+        <img src="{{ album.image.url }}" alt="album image">
+        {% endif %}
         <div class="flex">
             <div class="pr2"></div>
             <div>
-            <img src="{{ album.image }}">
-            {{ album.artist }}<br />
+
+            {{ album.artist }}<br>
+            <br>
             </div>
         </div>
         <p>
@@ -22,6 +25,8 @@
             <a href="{% url 'edit_album' pk=album.pk %}">Edit Album Details</a><br>
             <a class="red" href="{% url 'delete_album' pk=album.pk %}">Delete Album Entry</a>
         </p>
+        <br>
+        <br>
     </div>
     {% endfor %}
 </div>

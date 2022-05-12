@@ -8,3 +8,6 @@ class Album(models.Model):
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     artist = models.CharField(max_length=455)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.album_title

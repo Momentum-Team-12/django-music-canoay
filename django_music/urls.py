@@ -14,10 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.conf import settings
+from django.urls import path, include
+from django.conf.urls.static import static
 from albums import views as albums_views
-from django.conf import settings #add this
-from django.conf.urls.static import static #add this
 
 
 urlpatterns = [
@@ -25,6 +25,7 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
     path('', albums_views.album_home, name='album_home'),
     path('albums/new/', albums_views.add_album, name='add_album'),
+
     path('albums/<int:pk>',
          albums_views.view_album,
          name='view_album'),
@@ -34,4 +35,4 @@ urlpatterns = [
     path('albums/<int:pk>/delete/',
          albums_views.delete_album,
          name='delete_album'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

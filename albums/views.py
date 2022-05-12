@@ -1,4 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
+from django.views.generic import ListView, CreateView  # new
+from django.urls import reverse_lazy  # new
 from .models import Album
 from .forms import AlbumForm
 
